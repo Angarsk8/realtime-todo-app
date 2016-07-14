@@ -7,7 +7,7 @@ i = 0
 public_folder "src/public"
 
 get "/" do
-  render "src/views/home.ecr", "src/views/index.ecr"
+  render "src/views/home.ecr", "src/views/layout.ecr"
 end
 
 ws "/" do |socket|
