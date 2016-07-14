@@ -1,0 +1,137 @@
+* {
+    font-family: 'Lobster', cursive;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+#footer {
+    height: auto;
+    background-color: #f5f5f5;
+}
+
+#wrap > .container {
+    padding: 60px 15px 0;
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+
+#footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.app-name {
+    font-weight: 500;
+}
+
+.main-content {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.list-group {
+    margin-top: 3%;
+}
+
+.panels-wrapper {
+    margin-top: 4%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    border-color: #ddd;
+}
+
+.panel {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+}
+
+.panel-heading,
+.panel-body {
+    border-radius: 0;
+    text-align: justify;
+}
+
+.panel-title {
+    font-weight: bolder;
+}
+
+.buttons-block {
+    margin-top: 8px;
+}
+
+.app-button {
+    margin-right: 5px;
+}
+
+.timestamps {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: 500 !important;
+}
+
+.my-photo {
+    width: 50px;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: #777;
+    border-width: 3px;
+}
+
+.my-avatar {
+    margin-left: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.custom-typo {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 16px;
+}
+
+.custom-typo-title span {
+    /*font-family: 'Homenaje', sans-serif;*/
+
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+span.closing-icon {
+    font-size: 13px;
+    color: rgba(172, 172, 172, 0.67);
+    cursor: pointer;
+}
+
+span.closing-icon:hover,
+span.closing-icon:active {
+    font-size: 15px;
+    color: rgba(217, 83, 79, 0.79);
+}
+
+.error {
+    color: #ff6060;
+}
