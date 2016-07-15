@@ -120,9 +120,13 @@ textarea {
   padding: 4px 0
 }
 
-.note-panel .custom-typo-title span {
+.note-panel .custom-typo-title span.note-title-text {
   /*font-family: 'Yanone Kaffeesatz', sans-serif;*/
   font-size: 19px;
+}
+
+.note-panel .panel-heading{
+  min-height: 42px;
 }
 
 #updated-text{
@@ -133,6 +137,7 @@ textarea {
 span.closing-icon {
   font-size: 15px;
   color: rgba(172, 172, 172, 0.67);
+  padding-top: 3px;
   cursor: pointer;
 }
 
@@ -144,4 +149,5 @@ span.closing-icon:hover {
 
 .error {
   color: #ff6060;
+  font-weight: 400;
 }

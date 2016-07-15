@@ -20,7 +20,7 @@ const noteHTML = note =>
   `<div class="panel panel-default note-panel" note-id="${note.id}">
     <div class="panel-heading">
       <h3 class="panel-title custom-typo-title note-title">
-        <span class="text-info note-title-text" >${note.title}</span>
+        <span contenteditable="true" class="text-info note-title-text" >${note.title}</span>
         <span id="updated-text">
           ${displayUpdated(note.created_at, note.updated_at)}
         </span>
@@ -28,10 +28,10 @@ const noteHTML = note =>
       </h3>
     </div>
     <div class="panel-body">
-        <div class="custom-typo text-muted note-content">${note.content}</div>
+        <div contenteditable="true" class="custom-typo text-muted note-content">${note.content}</div>
         <div class="timestamps">
-          <small class="text-success">Created at ${note.created_at}</small>
-          | <small class="text-warning">Updated at ${note.updated_at}</small>
+          <small class="text-success"><span class="hidden-xs">Created at</span> ${note.created_at}</small>
+          | <small class="text-warning"><span class="hidden-xs">Update at</span> ${note.updated_at}</small>
         </div>
         <div class="buttons-block">
           <button type="button" class="delete-button btn btn-danger btn-sm app-button">

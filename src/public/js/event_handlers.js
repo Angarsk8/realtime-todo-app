@@ -25,37 +25,48 @@ $(document).ready(() => {
 
     const _payload =
       type == "CREATE" ? {title, content, type} : {id, title, content, type}
-    const payload =
-      stringify({ id, title, content, type })
+    const payload = stringify(_payload)
 
     ws.send(payload)
 
     $('#input-form').modal('hide')
   })
 
-  $('.panels-wrapper').on('click', ".closing-icon, .delete-button", function (e) {
-    e.preventDefault();
-    const id = $(this).parents(".note-panel").attr('note-id')
-    $("#delete-form").attr("note-id", id)
-    $('#delete-confirm').modal('show')
+  $("[name=note_content]").keypress(function(e) {
+    if(e.which == 13) {
+      $('#task-form').submit()
+    }
   })
 
   // event handler for deleting a given task
-  $("#delete-form").on("submit", e => {
+  $('.panels-wrapper').on('click', ".closing-icon, .delete-button", function (e) {
     e.preventDefault()
 
-    const noteId = parseInt($("#delete-form").attr("note-id"))
-    const payload = stringify({ id: noteId, type: "DELETE" })
+    const id = parseInt($(this).parents(".note-panel").attr('note-id'))
+    const payload = stringify({ id: id, type: "DELETE" })
 
     ws.send(payload)
+  })
 
-    $('#delete-confirm').modal('hide')
+  // event handler for editing a task inline
+  $('.panels-wrapper').on('blur', '[contenteditable]', function() {
+    const $panel =  $(this).parents(".note-panel")
+    const id = parseInt($panel.attr('note-id'))
+    const title = $panel.find(".note-title-text").text()
+    const content = $panel.find(".note-content").text()
+    const payload = stringify({ id, title, content, type: "UPDATE" })
+
+    $("[contenteditable]").each(function(){
+      return $(this).attr("contenteditable", "false");
+    })
+
+    ws.send(payload)
   })
 
   // event handler when clicking the edit button on a given task
   $('.panels-wrapper').on('click', ".edit-button", function (e) {
-    e.preventDefault();
-    cleanInputForm();
+    e.preventDefault()
+    cleanInputForm()
     const $panel =  $(this).parents(".note-panel")
     const id = $panel.attr('note-id')
     const title = $panel.find(".note-title-text").text()

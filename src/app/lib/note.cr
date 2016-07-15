@@ -17,6 +17,8 @@ class Note
   end
 
   def format_on_update()
+    self.title = self.title.capitalize
+    self.content = self.content.capitalize
     self.updated_at = Time.now.to_s("%m/%d/%Y, %T")
     self
   end
