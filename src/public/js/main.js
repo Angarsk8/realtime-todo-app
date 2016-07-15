@@ -25,7 +25,7 @@ const noteHTML = note =>
         <div class="custom-typo text-muted note-content">${note.content}</div>
         <div class="timestamps">
           <small class="text-success">Created at ${note.created_at}</small>
-          | <small class="text-success">Updated at ${note.updated_at}</small>
+          | <small class="text-warning">Updated at ${note.updated_at}</small>
         </div>
         <div class="buttons-block">
           <button type="button" class="delete-button btn btn-danger btn-sm app-button">

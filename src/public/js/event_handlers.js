@@ -3,7 +3,10 @@ $(document).ready(() => {
   $('.add-task').on('click', e => {
     e.preventDefault()
     cleanInputForm()
-    $('#task-form').attr("note-action", "CREATE")
+    $('#task-form')
+    .attr("note-action", "CREATE")
+    .find("#submit-button")
+    .text("Create")
     $('#input-form').modal('show')
   })
 
@@ -17,6 +20,8 @@ $(document).ready(() => {
     const title = $("[name=note_title]").val()
     const content = $("[name=note_content]").val()
     const id = parseInt($("#task-form").attr("note-id"))
+
+    if (!title || !content) return false
 
     const _payload =
       type == "CREATE" ? {title, content, type} : {id, title, content, type}
@@ -58,8 +63,11 @@ $(document).ready(() => {
 
     $('[name=note_title]').val(title);
     $('[name=note_content]').val(content);
-    $('#task-form').attr("note-action", "UPDATE")
-    $('#task-form').attr("note-id", id)
+    $('#task-form')
+    .attr("note-action", "UPDATE")
+    .attr("note-id", id)
+    .find("#submit-button")
+    .text("Update")
     $('#input-form').modal('show');
   });
 
