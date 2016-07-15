@@ -17,8 +17,8 @@ $(document).ready(() => {
     e.preventDefault()
 
     const type = $("#task-form").attr("note-action")
-    const title = $("[name=note_title]").val()
-    const content = $("[name=note_content]").val()
+    const title = $("[name=note_title]").val().trim()
+    const content = $("[name=note_content]").val().trim()
     const id = parseInt($("#task-form").attr("note-id"))
 
     if (!title || !content) return false

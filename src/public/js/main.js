@@ -12,12 +12,18 @@ ws.onmessage = e => {
   $(".panels-wrapper").html(notesHTMLText)
 }
 
+const displayUpdated = (createdAt, updateAt) =>
+  createdAt !== updateAt ? "(updated)" : ""
+
 // helper function to build a note HTML text
 const noteHTML = note =>
   `<div class="panel panel-default note-panel" note-id="${note.id}">
     <div class="panel-heading">
       <h3 class="panel-title custom-typo-title note-title">
         <span class="text-info note-title-text" >${note.title}</span>
+        <span id="updated-text">
+          ${displayUpdated(note.created_at, note.updated_at)}
+        </span>
         <span class="pull-right closing-icon">x</span>
       </h3>
     </div>
