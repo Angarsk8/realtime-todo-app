@@ -32,9 +32,17 @@ $(document).ready(() => {
     $('#input-form').modal('hide')
   })
 
+  // event handler for submiting the form when enter is hit on the textarea
   $("[name=note_content]").keypress(function(e) {
     if(e.which == 13) {
       $('#task-form').submit()
+    }
+  })
+
+  // event handler for editing inline tasks when enter is hit
+  $('.panels-wrapper').on('keypress', "[contenteditable]", function(e) {
+    if(e.which == 13) {
+      $(this).blur()
     }
   })
 
