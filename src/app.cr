@@ -13,26 +13,36 @@ get "/" do
 end
 
 ws "/notes" do |socket|
-
+  # Send initial state to all connected clients and store the new connection
   socket.send notes.to_json
   sockets.push socket
 
+  # Handle incoming message and dispatch notes to all connected clients
   socket.on_message do |msg|
 
     msg = JSON.parse(msg).as_h
 
+    # Handle message type to perform CRUD like operations
     case msg["type"]
-      when "CREATE"
-        notes = create_note(msg.dup, notes.dup)
-      when "UPDATE"
-        notes = update_note(msg.dup, notes.dup)
-      when "DELETE"
-        notes = delete_note(msg.dup, notes.dup)
+    when "CREATE"
+      notes = create_note(msg.dup, notes.dup)
+    when "UPDATE"
+      notes = update_note(msg.dup, notes.dup)
+    when "DELETE"
+      notes = delete_note(msg.dup, notes.dup)
+    else
+      next
     end
 
     sockets.each do |s|
       s.send notes.to_json
     end
+  end
+
+  # Handle disconnection and clean sockets
+  socket.on_close do |_|
+    sockets.delete(socket)
+    puts "Closing Socket: #{socket}"
   end
 end
 

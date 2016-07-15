@@ -1,21 +1,35 @@
-// extract properties and methods to be used
+// Extract properties and methods to be used
 const {hostname, port} = location
 const {parse, stringify} = JSON
 
-// creates websocket connection with the server
-const ws = new WebSocket(`ws://${hostname}:${port}/notes`)
+// Create a websocket connection with the server
+ws = new WebSocket(`ws://${hostname}:${port}/notes`)
 
-// defines an on_message event handler for incoming messages from the server
+// Handle incoming messages and display them in the document
 ws.onmessage = e => {
   const notes = parse(e.data).map(noteStr => parse(noteStr))
   const notesHTMLText = notes.map(note => noteHTML(note))
   $(".panels-wrapper").html(notesHTMLText)
 }
 
+// Handle disconnection and log it to the console
+ws.onclose = e => {
+  console.log(`Connection Closed: ${e.reason}`)
+}
+
+// Handle connection error and log it to the console
+ws.onerror = e => {
+  console.log(`Socket Error: ${e.data}`)
+}
+
+// PING the server every minute to stay connected and avoid the browser to disconnect the socket
+setInterval(() => { ws.send(stringify({type: "PING"})) }, 60000)
+
+// Helper function to display "updated" if the note has been updated
 const displayUpdated = (createdAt, updateAt) =>
   createdAt !== updateAt ? "(updated)" : ""
 
-// helper function to build a note HTML text
+// Helper function to build a note HTML text
 const noteHTML = note =>
   `<div class="panel panel-default note-panel" note-id="${note.id}">
     <div class="panel-heading">
