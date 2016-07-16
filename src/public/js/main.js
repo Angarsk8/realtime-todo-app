@@ -3,7 +3,7 @@ const {hostname, port} = location
 const {parse, stringify} = JSON
 
 // Create a websocket connection with the server
-ws = new WebSocket(`ws://${hostname}:${port}/notes`)
+ws = new WebSocket(`wss://${hostname}:${port}/notes`)
 
 // Handle incoming messages and display them in the document
 ws.onmessage = e => {
@@ -30,7 +30,7 @@ const setAnimation = (notes, i, animation) =>
   notes.length - 1 === i ?  animation : ""
 
 // PING the server every minute to stay connected and avoid the browser to disconnect the socket
-setInterval(() => { ws.send(stringify({type: "PING"})) }, 60000)
+setInterval(() => { ws.send(stringify({type: "PING"})) }, 10000)
 
 // Helper function to build a note HTML text
 const noteHTML = (note, animation) =>
