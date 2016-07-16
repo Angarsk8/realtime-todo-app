@@ -2,24 +2,16 @@
 const {hostname, port} = location
 const {parse, stringify} = JSON
 
-// helper variable to get the first interaction
-let _interactions = 0
-
 // Create a websocket connection with the server
 ws = new WebSocket(`ws://${hostname}:${port}/notes`)
 
 // Handle incoming messages and display them in the document
 ws.onmessage = e => {
-  _interactions += 1
-
   const notes = parse(e.data).map(noteStr => parse(noteStr))
   const prev = $(".note-panel").length
   const cur = notes.length
   const animation = (prev == cur || prev > cur) ? "" : "animated fadeIn"
-  let $notesHTML =
-    _interactions == 1 ?
-    notes.map((note, i) => noteHTML(note, "animated fadeIn")) :
-    notes.map((note, i) => noteHTML(note, setAnimation(notes, i, animation)))
+  const $notesHTML = notes.map((note, i) => noteHTML(note, setAnimation(notes, i, animation)))
 
   $(".panels-wrapper").html($notesHTML)
 }
@@ -40,10 +32,6 @@ const setAnimation = (notes, i, animation) =>
 // PING the server every minute to stay connected and avoid the browser to disconnect the socket
 setInterval(() => { ws.send(stringify({type: "PING"})) }, 60000)
 
-// Helper function to display "updated" if the note has been updated
-const displayUpdated = (createdAt, updateAt) =>
-  createdAt !== updateAt ? "(updated)" : ""
-
 // Helper function to build a note HTML text
 const noteHTML = (note, animation) =>
   `<div class="panel panel-default note-panel ${animation}" note-id="${note.id}">
@@ -51,23 +39,24 @@ const noteHTML = (note, animation) =>
       <h3 class="panel-title custom-typo-title note-title">
         <span contenteditable="true" class="text-info note-title-text"  >${note.title}</span>
         <span id="updated-text">
-          ${displayUpdated(note.created_at, note.updated_at)}
+          ${note.created_at !== note.updated_at ? "(updated)" : ""}
         </span>
         <span class="pull-right closing-icon">x</span>
       </h3>
     </div>
     <div class="panel-body">
-        <div contenteditable="true" class="custom-typo text-muted note-content">${note.content}</div>
-        <div class="timestamps">
-          <small class="text-success"><span class="hidden-xs">Created at</span> ${note.created_at}</small>
-          | <small class="text-warning"><span class="hidden-xs">Update at</span> ${note.updated_at}</small>
-        </div>
-        <div class="buttons-block">
-          <button type="button" class="delete-button btn btn-danger btn-sm app-button">
-            Delete
-          </button>
-          <button type="button" class="edit-button btn btn-warning btn-sm app-button">
-            Edit
-          </button>
-        </div>
-  </div>`
+      <div contenteditable="true" class="custom-typo text-muted note-content">${note.content}</div>
+      <div class="timestamps">
+        <small class="text-success"><span class="hidden-xs">Created at</span> ${note.created_at}</small>
+        | <small class="text-warning"><span class="hidden-xs">Update at</span> ${note.updated_at}</small>
+      </div>
+      <div class="buttons-block">
+        <button type="button" class="delete-button btn btn-danger btn-sm app-button">
+          Delete
+        </button>
+        <button type="button" class="edit-button btn btn-warning btn-sm app-button">
+          Edit
+        </button>
+      </div>
+    </div>
+  </div`

@@ -8,13 +8,13 @@ sockets  = [] of HTTP::WebSocket
 
 public_folder "src/public"
 
-get "/" do
+get "/" do |env|
+  todos = notes.dup.map { |note_str|  JSON.parse(note_str) }
   render "src/views/home.ecr", "src/views/layout.ecr"
 end
 
 ws "/notes" do |socket|
-  # Send initial state to all connected clients and store the new connection
-  socket.send notes.to_json
+  # Store the new connection in the sockets list
   sockets.push socket
 
   # Handle incoming message and dispatch notes to all connected clients
@@ -33,8 +33,6 @@ ws "/notes" do |socket|
     else
       next
     end
-
-    puts notes
 
     sockets.each do |s|
       s.send notes.to_json
