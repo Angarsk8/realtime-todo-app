@@ -9,7 +9,7 @@ sockets  = [] of HTTP::WebSocket
 public_folder "src/public"
 
 get "/" do |env|
-  todos = notes.dup.map { |note_str|  JSON.parse(note_str) }
+  todos = notes.map { |note_str|  Note.from_json(note_str) }
   render "src/views/home.ecr", "src/views/layout.ecr"
 end
 
