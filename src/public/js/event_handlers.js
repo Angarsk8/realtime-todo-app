@@ -53,7 +53,12 @@ $(document).ready(() => {
     const id = parseInt($(this).parents(".note-panel").attr('note-id'))
     const payload = stringify({ id: id, type: "DELETE" })
 
-    ws.send(payload)
+    $(this).parents(".note-panel").addClass("animated fadeOut")
+
+    setTimeout(function () {
+      ws.send(payload)
+    }, 1000);
+
   })
 
   // event handler for editing a task inline

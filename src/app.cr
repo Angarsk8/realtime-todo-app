@@ -34,6 +34,8 @@ ws "/notes" do |socket|
       next
     end
 
+    puts notes
+
     sockets.each do |s|
       s.send notes.to_json
     end

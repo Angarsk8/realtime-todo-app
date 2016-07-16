@@ -2,14 +2,26 @@
 const {hostname, port} = location
 const {parse, stringify} = JSON
 
+// helper variable to get the first interaction
+let _interactions = 0
+
 // Create a websocket connection with the server
 ws = new WebSocket(`ws://${hostname}:${port}/notes`)
 
 // Handle incoming messages and display them in the document
 ws.onmessage = e => {
+  _interactions += 1
+
   const notes = parse(e.data).map(noteStr => parse(noteStr))
-  const notesHTMLText = notes.map(note => noteHTML(note))
-  $(".panels-wrapper").html(notesHTMLText)
+  const prev = $(".note-panel").length
+  const cur = notes.length
+  const animation = (prev == cur || prev > cur) ? "" : "animated fadeIn"
+  let $notesHTML =
+    _interactions == 1 ?
+    notes.map((note, i) => noteHTML(note, "animated fadeIn")) :
+    notes.map((note, i) => noteHTML(note, setAnimation(notes, i, animation)))
+
+  $(".panels-wrapper").html($notesHTML)
 }
 
 // Handle disconnection and log it to the console
@@ -22,6 +34,9 @@ ws.onerror = e => {
   console.log(`Socket Error: ${e.data}`)
 }
 
+const setAnimation = (notes, i, animation) =>
+  notes.length - 1 === i ?  animation : ""
+
 // PING the server every minute to stay connected and avoid the browser to disconnect the socket
 setInterval(() => { ws.send(stringify({type: "PING"})) }, 60000)
 
@@ -30,11 +45,11 @@ const displayUpdated = (createdAt, updateAt) =>
   createdAt !== updateAt ? "(updated)" : ""
 
 // Helper function to build a note HTML text
-const noteHTML = note =>
-  `<div class="panel panel-default note-panel" note-id="${note.id}">
+const noteHTML = (note, animation) =>
+  `<div class="panel panel-default note-panel ${animation}" note-id="${note.id}">
     <div class="panel-heading">
       <h3 class="panel-title custom-typo-title note-title">
-        <span contenteditable="true" class="text-info note-title-text" >${note.title}</span>
+        <span contenteditable="true" class="text-info note-title-text"  >${note.title}</span>
         <span id="updated-text">
           ${displayUpdated(note.created_at, note.updated_at)}
         </span>
