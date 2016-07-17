@@ -5,7 +5,11 @@ require "./app/lib/note"
 
 public_folder "src/public"
 
-conn = PG.connect "postgres://Angarsk8@localhost:5432/notes_db"
+COMPOSE = ".compose_psql_path"
+
+DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://Angarsk8@localhost:5432/notes_db"
+
+conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket
 
 get "/" do |env|
@@ -14,7 +18,6 @@ get "/" do |env|
 end
 
 ws "/notes" do |socket|
-  # Store the new connection in the sockets list
   sockets.push socket
 
   # Handle incoming message and dispatch notes to all connected clients
@@ -34,7 +37,12 @@ ws "/notes" do |socket|
     end
 
     sockets.each do |s|
-      s.send Note.all(conn).to_json
+      begin
+        s.send Note.all(conn).to_json
+      rescue ex
+        sockets.delete(s)
+        puts "Closing Socket: #{s}"
+      end
     end
   end
 

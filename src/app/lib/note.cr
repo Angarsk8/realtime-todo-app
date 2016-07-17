@@ -26,31 +26,31 @@ class Note
     conn.exec(%{
       INSERT INTO notes (title, content, created_at, updated_at)
       VALUES (
-        upper(substr('#{self.title}', 1, 1)) ||
-        substr('#{self.title}', 2, length('#{self.title}')),
-        upper(substr('#{self.content}', 1, 1)) ||
-        substr('#{self.content}', 2, length('#{self.content}')),
+        upper(substr($1, 1, 1)) ||
+        substr($1, 2, length($1)),
+        upper(substr($2, 1, 1)) ||
+        substr($2, 2, length($2)),
         current_timestamp,
         current_timestamp
       )
-    })
+    }, [self.title, self.content])
   end
 
   def update(conn)
     conn.exec(%{
       UPDATE notes
-      SET title      = '#{self.title}',
-          content    = '#{self.content}',
+      SET title      = $1,
+          content    = $2,
           updated_at = current_timestamp
-      WHERE id=#{self.id};
-    })
+      WHERE id = $3;
+    }, [self.title, self.content, self.id])
   end
 
   def delete(conn)
     conn.exec(%{
       DELETE FROM notes
-      WHERE id = '#{self.id}';
-    })
+      WHERE id = $1;
+    }, [self.id])
   end
 
   def self.transform_notes(notes_table)
