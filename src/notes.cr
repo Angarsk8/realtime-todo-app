@@ -1,15 +1,15 @@
 require "kemal"
-require "./app/lib/crud"
-
-include CRUD
-
-notes    = [] of String
-sockets  = [] of HTTP::WebSocket
+require "json"
+require "pg"
+require "./app/lib/note"
 
 public_folder "src/public"
 
+conn = PG.connect "postgres://Angarsk8@localhost:5432/notes_db"
+sockets = [] of HTTP::WebSocket
+
 get "/" do |env|
-  todos = notes.map { |note_str|  Note.from_json(note_str) }
+  notes = JSON.parse(Note.all(conn).to_json)
   render "src/views/home.ecr", "src/views/layout.ecr"
 end
 
@@ -19,23 +19,22 @@ ws "/notes" do |socket|
 
   # Handle incoming message and dispatch notes to all connected clients
   socket.on_message do |msg|
+    payload = JSON.parse(msg).as_h
 
-    msg = JSON.parse(msg).as_h
-
-    # Handle message type to perform CRUD like operations
-    case msg["type"]
+    # Handle message type to perform different CRUD operations
+    case payload["type"]
     when "CREATE"
-      notes = create_note(msg.dup, notes.dup)
+      Note.create_from(payload).insert(conn)
     when "UPDATE"
-      notes = update_note(msg.dup, notes.dup)
+      Note.create_from(payload).update(conn)
     when "DELETE"
-      notes = delete_note(msg.dup, notes.dup)
+      Note.create_from(payload).delete(conn)
     else
       next
     end
 
     sockets.each do |s|
-      s.send notes.to_json
+      s.send Note.all(conn).to_json
     end
   end
 

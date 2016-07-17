@@ -8,6 +8,10 @@ shards:
     github: jeromegn/kilt
     version: 0.3.3
 
+  pg:
+    github: will/crystal-pg
+    commit: cafe3e90b4a239aa9819482543c63503a6a3f477
+
   radix:
     github: luislavena/radix
     version: 0.3.0

@@ -8,5 +8,8 @@ dependencies:
   kemal:
     github: sdogruyol/kemal
     branch: master
+  pg: 
+    github: will/crystal-pg
+    branch: master
 
 license: MIT

@@ -3,11 +3,11 @@ const {hostname, port} = location
 const {parse, stringify} = JSON
 
 // Create a websocket connection with the server
-ws = new WebSocket(`wss://${hostname}:${port}/notes`)
+ws = new WebSocket(`ws://${hostname}:${port}/notes`)
 
 // Handle incoming messages and display them in the document
 ws.onmessage = e => {
-  const notes = parse(e.data).map(noteStr => parse(noteStr))
+  const notes = parse(e.data)
   const prev = $(".note-panel").length
   const cur = notes.length
   const animation = (prev == cur || prev > cur) ? "" : "animated fadeIn"
