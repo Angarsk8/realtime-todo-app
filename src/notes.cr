@@ -7,7 +7,7 @@ public_folder "src/public"
 
 COMPOSE = ".compose_psql_db_path"
 
-DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://user:password@host:5432/notes_db"
+DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://user:password@localhost:5432/db_name"
 
 conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket

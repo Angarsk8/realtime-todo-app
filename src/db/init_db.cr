@@ -1,10 +1,10 @@
 require "pg"
 
-DB_NAME = "notes_db"
-PG_PATH = "postgres://user:password@host:5432"
+DB_NAME = "db_name"
+PG_PATH = "postgres://user:password@localhost:5432"
 
-# CREATES CONNECTION WITH SYSTEM DB
-conn = PG.connect "#{PG_PATH}/postgres"
+# CREATES CONNECTION WITH DEFAULT POSTGRES DB
+conn = PG.connect("#{PG_PATH}/postgres")
 
 database_exists? = conn.exec(%{
   SELECT CAST(1 AS integer)
@@ -20,7 +20,7 @@ if !database_exists?
 
   # CREATES CONNECTION WITH THE NEWLY CREATED DB
   puts "Connecting database: #{DB_NAME}..."
-  conn = PG.connect "#{PG_PATH}/notes_db"
+  conn = PG.connect("#{PG_PATH}/#{DB_NAME}")
 
   # CREATES THE NOTES TABLE IN THE NEWLY CREATED DATABASE
   puts "Creating notes table in #{DB_NAME}..."
