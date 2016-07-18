@@ -5,7 +5,8 @@ require "./app/lib/note"
 
 public_folder "src/public"
 
-COMPOSE = ".compose_psql_path"
+# COMPOSE = ".compose_psql_path"
+COMPOSE = ".compose_psql_path_wrong_path"
 
 DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://Angarsk8@localhost:5432/notes_db"
 
