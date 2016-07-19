@@ -1,13 +1,12 @@
 // Extract properties and methods to be used
 const {hostname, port} = location
-const {parse, stringify} = JSON
 
 // Create a websocket connection with the server
-ws = new WebSocket(`ws://${hostname}:${port}/notes`)
+const ws = new WebSocket(`ws://${hostname}:${port}/notes`)
 
 // Handle incoming messages and display them in the document
 ws.onmessage = e => {
-  const notes = parse(e.data)
+  const notes = JSON.parse(e.data)
   const prev = $(".note-panel").length
   const cur = notes.length
   const animation = (prev == cur || prev > cur) ? "" : "animated fadeIn"
@@ -30,7 +29,7 @@ const setAnimation = (notes, i, animation) =>
   notes.length - 1 === i ?  animation : ""
 
 // PING the server every minute to stay connected and avoid the browser to disconnect the socket
-setInterval(() => { ws.send(stringify({type: "PING"})) }, 10000)
+setInterval(() => { ws.send(JSON.stringify({type: "PING"})) }, 10000)
 
 // Helper function to build a note HTML text
 const noteHTML = (note, animation) =>
@@ -38,7 +37,7 @@ const noteHTML = (note, animation) =>
     <div class="panel-heading">
       <h3 class="panel-title custom-typo-title note-title">
         <span contenteditable="true" class="text-info note-title-text"  >${note.title}</span>
-        <span id="updated-text">
+        <span class="updated-text">
           ${note.created_at !== note.updated_at ? "(updated)" : ""}
         </span>
         <span class="pull-right closing-icon">x</span>

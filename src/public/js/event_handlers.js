@@ -25,7 +25,7 @@ $(document).ready(() => {
 
     const _payload =
       type == "CREATE" ? {title, content, type} : {id, title, content, type}
-    const payload = stringify(_payload)
+    const payload = JSON.stringify(_payload)
 
     ws.send(payload)
 
@@ -51,7 +51,7 @@ $(document).ready(() => {
     e.preventDefault()
 
     const id = parseInt($(this).parents(".note-panel").attr('note-id'))
-    const payload = stringify({ id: id, type: "DELETE" })
+    const payload = JSON.stringify({ id: id, type: "DELETE" })
 
     $(this).parents(".note-panel").addClass("animated fadeOut")
 
@@ -67,7 +67,7 @@ $(document).ready(() => {
     const id = parseInt($panel.attr('note-id'))
     const title = $panel.find(".note-title-text").text()
     const content = $panel.find(".note-content").text()
-    const payload = stringify({ id, title, content, type: "UPDATE" })
+    const payload = JSON.stringify({ id, title, content, type: "UPDATE" })
 
     $("[contenteditable]").each(function(){
       return $(this).attr("contenteditable", "false");
