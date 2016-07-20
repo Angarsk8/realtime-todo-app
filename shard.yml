@@ -8,7 +8,7 @@ dependencies:
   kemal:
     github: sdogruyol/kemal
     branch: master
-  pg: 
+  pg:
     github: will/crystal-pg
     branch: master
 
