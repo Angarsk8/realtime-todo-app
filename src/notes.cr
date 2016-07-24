@@ -7,18 +7,20 @@ public_folder "src/public"
 
 COMPOSE = ".compose_psql_db_path"
 
-DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://user:password@localhost:5432/db_name"
+DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://postgres@localhost:5432/notes_db"
 
 conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket
 
 get "/" do |env|
-  notes = JSON.parse(Note.all(conn).to_json)
+  # notes = JSON.parse(Note.all(conn).to_json)
   render "src/views/home.ecr", "src/views/layout.ecr"
 end
 
 ws "/notes" do |socket|
   sockets.push socket
+
+  socket.send Note.all(conn).to_json
 
   # Handle incoming message and dispatch notes to all connected clients
   socket.on_message do |msg|

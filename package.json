@@ -1,10 +1,10 @@
-
 {
   "name": "kemal-ws-todo-app",
   "version": "1.0.0",
   "description": "Basic real time todo app built with crystal-lang, kemal, websockets and postgresql",
   "main": "index.js",
   "scripts": {
+    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,17 +17,20 @@
     "url": "https://github.com/Angarsk8/kemal-ws-pg-todo-app/issues"
   },
   "homepage": "https://github.com/Angarsk8/kemal-ws-pg-todo-app#readme",
-  "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
+  "dependencies": {
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.3.13",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
     "bootstrap": "^3.3.6",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-clean-css": "^2.0.11",
-    "gulp-concat": "^2.6.0",
-    "gulp-livereload": "^3.8.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.4",
-    "jquery": "^2.1.4",
-    "jquery-validation": "^1.15.0"
+    "jquery": "^3.1.0",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.1"
   }
 }

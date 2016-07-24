@@ -3,6 +3,7 @@ const concat = require('gulp-concat')
 const uglify = require('gulp-uglify')
 const rename = require('gulp-rename')
 const babel  = require('gulp-babel')
+const react  = require('gulp-react')
 const minCSS = require('gulp-clean-css')
 
 const jsFiles = 'src/public/js/src/*.js'
@@ -21,14 +22,24 @@ const bootstrapCss      = 'node_modules/bootstrap/dist/css/bootstrap.css'
 const bootstrapThemeCss = 'node_modules/bootstrap/dist/css/bootstrap-theme.css'
 const animateCss        = 'src/public/css/lib/animate.css'
 
+// gulp.task('build-js', () => {
+// 	return gulp.src([jquery, bootstrapjs, jqueryValidate, jsFiles])
+// 		.pipe(concat('build.js'))
+// 		.pipe(babel({
+// 			presets: ['es2015']
+// 		}))
+// 		.pipe(rename('build.min.js'))
+// 		.pipe(uglify())
+// 		.pipe(gulp.dest(jsDest))
+// })
+
 gulp.task('build-js', () => {
-	return gulp.src([jquery, bootstrapjs, jqueryValidate, jsFiles])
+	return gulp.src(['src/public/js/components/*.jsx'])
 		.pipe(concat('build.js'))
+		.pipe(react())
 		.pipe(babel({
 			presets: ['es2015']
 		}))
-		.pipe(rename('build.min.js'))
-		.pipe(uglify())
 		.pipe(gulp.dest(jsDest))
 })
 
