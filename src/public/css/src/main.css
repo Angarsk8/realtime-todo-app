@@ -9,6 +9,10 @@ body {
   height: 100%;
 }
 
+textarea {
+  resize: vertical;
+}
+
 #wrap {
   min-height: 100%;
   height: auto !important;
@@ -84,21 +88,9 @@ body {
   text-align: justify;
 }
 
-.buttons-block {
-  margin-top: 8px;
-}
-
-.app-button {
-  margin-right: 5px;
-}
-
 .timestamps {
   padding: 8px 0;
   font-weight: 500 !important;
-}
-
-textarea {
-  resize: vertical;
 }
 
 .note-panel .custom-typo {

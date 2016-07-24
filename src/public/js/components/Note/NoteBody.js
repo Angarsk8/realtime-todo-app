@@ -1,4 +1,7 @@
 import React from "react"
+import { Button, ButtonToolbar } from "react-bootstrap"
+
+import ModalButton from "../ModalButton"
 
 export default class NoteBody extends React.Component {
 
@@ -45,18 +48,20 @@ export default class NoteBody extends React.Component {
         </div>
         <div className="timestamps">
           <small className="text-success">
-            <span className="hidden-xs">Created at </span>{this.props.created_at}
+            <span className="hidden-xs">Created at </span>
+            {this.props.created_at}
           </small> |
           <small className="text-warning">
-            <span className="hidden-xs"> Update at </span>{this.props.updated_at}
+            <span className="hidden-xs"> Update at </span>
+            {this.props.updated_at}
           </small>
         </div>
-        <div className="buttons-block">
-          <button onClick={this.handleRemove} type="button"
-                  className="delete-button btn btn-danger btn-sm app-button">Delete</button>
-          <button type="button"
-                  className="edit-button btn btn-warning btn-sm app-button">Edit</button>
-        </div>
+        <ButtonToolbar>
+          <Button onClick={this.handleRemove} bsStyle="danger" bsSize="small">Delete</Button>
+          <ModalButton server={this.server} title={this.props.title} content={this.props.content}
+            size="small" action="Update" buttonStyle="warning" noteId={this.props.id}
+            buttonName="Edit" modalTitle="Update Note"/>
+        </ButtonToolbar>
       </div>
     );
   }

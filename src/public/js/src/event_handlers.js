@@ -1,14 +1,12 @@
-import $ from "jquery"
-
-$('.add-task').on('click', e => {
-  e.preventDefault()
-  cleanInputForm()
-  $('#task-form')
-  .attr("note-action", "CREATE")
-  .find("#submit-button")
-  .text("Create")
-  $('#input-form').modal('show')
-})
+// $('.add-task').on('click', e => {
+//   e.preventDefault()
+//   cleanInputForm()
+//   $('#task-form')
+//   .attr("note-action", "CREATE")
+//   .find("#submit-button")
+//   .text("Create")
+//   $('#input-form').modal('show')
+// })
 //
 // // $(document).ready(() => {
 //
