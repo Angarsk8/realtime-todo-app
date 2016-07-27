@@ -1,4 +1,4 @@
-# Todo Basic App (Crystal - Kemal - WebSockets - PostgreSQL)
+# Todo Basic App (Crystal - Kemal - WebSockets - React - PostgreSQL)
 
 ## Requirements
 * Crystal 0.18.7
@@ -6,7 +6,7 @@
 * Node (I have the v5.11.1)
 * NPM (I have the v3.8.6)
 
-<sup>**Node and NPM are both optional if you are just going to run the app, but necessary for development since they are needed to run the gulp tasks that build the static files*<sup>
+<sup>**Node and NPM are both optional if you are just going to run the app, but necessary for development since they are needed to run webpack*<sup>
 
 ## Installation
 Before you can run this program you have to install the packages that it uses. You do that with `$ shards install `.
@@ -56,3 +56,6 @@ You can see and use a live demo of the app here: [kemalwspgtodo.herokuapp.com](h
 
 <sup>**Take in mind that this is just a dummy app written in few hours as a proof of concept*<sup>.
 
+## Development
+
+`$ npm run dev && crystal src/notes.cr`

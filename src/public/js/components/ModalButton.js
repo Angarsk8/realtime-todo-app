@@ -9,7 +9,7 @@ export default class ModalButton extends React.Component {
     this.open = this.open.bind(this)
     this.handleAction = this.handleAction.bind(this)
     this.handleEnter = this.handleEnter.bind(this)
-    this.state = { 
+    this.state = {
       showModal: false,
       titleError: false,
       contentError: false
@@ -21,7 +21,11 @@ export default class ModalButton extends React.Component {
   }
 
   open() {
-    this.setState({ showModal: true })
+    this.setState({
+      showModal: true,
+      titleError: false,
+      contentError: false
+    })
   }
 
   handleAction() {

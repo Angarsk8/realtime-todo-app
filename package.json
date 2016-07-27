@@ -1,10 +1,10 @@
 {
-  "name": "kemal-ws-todo-app",
+  "name": "kemal-ws-react-pg-todo-app",
   "version": "1.0.0",
-  "description": "Basic real time todo app built with crystal-lang, kemal, websockets and postgresql",
+  "description": "Basic real time todo app built with crystal-lang, kemal, websockets, react and postgresql",
   "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
+    "dev": "./node_modules/.bin/webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
