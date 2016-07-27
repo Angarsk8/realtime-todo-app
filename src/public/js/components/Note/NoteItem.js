@@ -6,7 +6,7 @@ import NoteBody from "./NoteBody"
 export default class NoteItem extends React.Component {
   render(){
     return (
-      <div className="panel panel-default note-panel" id={this.props.id}>
+      <div class="panel panel-default note-panel" id={this.props.id}>
         <NoteHeading {...this.props} />
         <NoteBody {...this.props} />
       </div>

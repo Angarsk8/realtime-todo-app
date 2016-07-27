@@ -17,21 +17,29 @@ class App extends React.Component {
       const notes = JSON.parse(event.data)
       this.setState({notes: notes})
     }
-    setInterval(() => { server.send(JSON.stringify({type: "PING"})) }, 30000)
+    
+    setInterval(() => { 
+      server.send(JSON.stringify({type: "PING"})) 
+    }, 30000)
+
     this.server = server
   }
 
   render(){
     return (
-      <div>
+      <div class="container main-content">
+        <h2 class="text-primary main-title">Add a task youd like to remember!</h2>
         <ModalButton server={this.server} title="" content=""
           size="large" action="Create" buttonStyle="primary"
-          buttonName="Add task!" modalTitle="Take a Note" displayBlock="true" />
-        <NoteList notes={this.state.notes} server={this.server} />
+          buttonName="Add task!" modalTitle="Take a Note" 
+          displayBlock="true" />
+        <div class="panels-wrapper">
+          <NoteList notes={this.state.notes} server={this.server} />
+        </div>
       </div>
     );
   }
 }
 
-const app = document.getElementById("panels-wrapper")
+const app = document.getElementById("app")
 ReactDOM.render(<App/>, app)

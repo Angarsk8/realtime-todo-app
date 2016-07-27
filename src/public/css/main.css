@@ -1,5 +1,4 @@
 * {
-  /*font-family: 'Lobster', cursive;*/
   font-family: 'Homenaje', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -45,6 +44,10 @@ textarea {
 
 .app-name {
   font-weight: 500;
+}
+
+.app-button {
+    margin-right: 5px;
 }
 
 .main-content {

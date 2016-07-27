@@ -13,8 +13,7 @@ conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket
 
 get "/" do |env|
-  # notes = JSON.parse(Note.all(conn).to_json)
-  render "src/views/home.ecr", "src/views/layout.ecr"
+  render "src/views/layout.ecr"
 end
 
 ws "/notes" do |socket|

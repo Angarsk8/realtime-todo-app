@@ -10,6 +10,7 @@ export default class NoteBody extends React.Component {
     this.handleRemove = this.handleRemove.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleEditable = this.handleEditable.bind(this)
+    this.handleEnter = this.handleEnter.bind(this)
     this.server = this.props.server
 
     this.state = {editable: false}
@@ -38,28 +39,37 @@ export default class NoteBody extends React.Component {
     setTimeout(() => { this.refs.content.focus() }, 0)
   }
 
+  handleEnter(e){
+    if(e.which === 13){
+      this.handleUpdate()
+    }
+  }
+
   render(){
     return (
-      <div className="panel-body">
+      <div class="panel-body" ref="panel">
         <div onBlur={this.handleUpdate} onClick={this.handleEditable}
-             contentEditable={this.state.editable} ref="content"
-             className="custom-typo text-muted note-content">
+          contentEditable={this.state.editable} ref="content"
+          class="custom-typo text-muted note-content"
+          onKeyPress={this.handleEnter}>
           {this.props.content}
         </div>
-        <div className="timestamps">
-          <small className="text-success">
-            <span className="hidden-xs">Created at </span>
+        <div class="timestamps">
+          <small class="text-success">
+            <span class="hidden-xs">Created at </span>
             {this.props.created_at}
           </small> |
-          <small className="text-warning">
-            <span className="hidden-xs"> Update at </span>
+          <small class="text-warning">
+            <span class="hidden-xs"> Update at </span>
             {this.props.updated_at}
           </small>
         </div>
         <ButtonToolbar>
-          <Button onClick={this.handleRemove} bsStyle="danger" bsSize="small">Delete</Button>
-          <ModalButton server={this.server} title={this.props.title} content={this.props.content}
-            size="small" action="Update" buttonStyle="warning" noteId={this.props.id}
+          <Button class="app-button" onClick={this.handleRemove}
+            bsStyle="danger" bsSize="small">Delete</Button>
+          <ModalButton server={this.server} title={this.props.title}
+            content={this.props.content} size="small" action="Update"
+            buttonStyle="warning" noteId={this.props.id}
             buttonName="Edit" modalTitle="Update Note"/>
         </ButtonToolbar>
       </div>

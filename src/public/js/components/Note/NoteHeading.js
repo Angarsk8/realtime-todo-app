@@ -7,6 +7,7 @@ export default class NoteHeading extends React.Component {
     this.handleRemove = this.handleRemove.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleEditable = this.handleEditable.bind(this)
+    this.handleEnter = this.handleEnter.bind(this)
     this.server = this.props.server
 
     this.state = {editable: false}
@@ -35,19 +36,27 @@ export default class NoteHeading extends React.Component {
     setTimeout(() => { this.refs.title.focus() }, 0)
   }
 
+  handleEnter(e){
+    if(e.which === 13){
+      this.handleUpdate()
+    }
+  }
+
   render(){
     return (
-      <div className="panel-heading">
-        <h3 className="panel-title custom-typo-title note-title">
+      <div class="panel-heading">
+        <h3 class="panel-title custom-typo-title note-title">
           <span onBlur={this.handleUpdate} onClick={this.handleEditable}
-                contentEditable={this.state.editable} ref="title"
-                className="text-info note-title-text">
+            contentEditable={this.state.editable} ref="title"
+            class="text-info note-title-text"
+            onKeyPress={this.handleEnter}>
             {this.props.title}
           </span>
-          <span className="updated-text">
-            {this.props.created_at !== this.props.updated_at ? " (updated)" : ""}
+          <span class="updated-text">
+          {this.props.created_at !== this.props.updated_at ? " (updated)" : ""}
           </span>
-          <span onClick={this.handleRemove} className="pull-right closing-icon">x</span>
+          <span onClick={this.handleRemove} 
+            class="pull-right closing-icon">x</span>
         </h3>
       </div>
     );
