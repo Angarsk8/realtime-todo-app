@@ -52,10 +52,11 @@ Once you have run the program, you can open a browser window at [localthost:3000
 
 ## Live Demo
 
-You can see and use a live demo of the app here: [kemalwspgtodo.herokuapp.com](https://kemalwspgtodo.herokuapp.com).
+You can see and use a live demo of the app here: [kemal-ws-react-pg-todo.herokuapp.com](https://kemal-ws-react-pg-todo.herokuapp.com/).
 
 <sup>**Take in mind that this is just a dummy app written in few hours as a proof of concept*<sup>.
 
 ## Development
 
-`$ npm run dev && crystal src/notes.cr`
+* `$ npm install`
+* `$ npm run dev && crystal src/notes.cr`
