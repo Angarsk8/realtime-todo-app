@@ -1,15 +1,15 @@
-import React from "react"
+import React from 'react'
 
-import NoteHeading from "./NoteHeading"
-import NoteBody from "./NoteBody"
+import NoteHeading from './Sections/NoteHeading'
+import NoteBody from './Sections/NoteBody'
 
-export default class NoteItem extends React.Component {
-  render(){
-    return (
-      <div class="panel panel-default note-panel" id={this.props.id}>
-        <NoteHeading {...this.props} />
-        <NoteBody {...this.props} />
-      </div>
-    );
-  }
+const NoteItem = (props) => {
+  return (
+    <div className="panel panel-default note-panel">
+      <NoteHeading { ...props } sectionName="title" />
+      <NoteBody    { ...props } sectionName="content" />
+    </div>
+  )
 }
+
+export default NoteItem
