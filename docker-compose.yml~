@@ -5,7 +5,7 @@ services:
   web:
     build: .
     image: angarsk8/loopa_todo_demo
-    command: bash -c "crystal src/db/init_db.cr && ./app --port 80"
+    command: ["./app", "--port", "80"]
     ports:
       - "80:80"
     depends_on:
