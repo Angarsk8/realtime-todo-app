@@ -11,6 +11,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     const { hostname, port } = location
     const server = new WebSocket(`ws://${hostname}:${port}/notes`)
 
@@ -26,14 +27,14 @@ class App extends Component {
     return (
       <div className="container main-content">
         <h2 className="text-primary main-title">
-          Add a task youd like to remember!
+          Add a task you'd like to remember!
         </h2>
         <ModalButton
           server={ this.server }
           size="large"
           action="Create"
           buttonStyle="primary"
-          buttonName="Add task!"
+          buttonName="Add Task!"
           modalTitle="Take a Note"
           displayBlock={ true }
         />

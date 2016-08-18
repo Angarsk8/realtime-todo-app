@@ -9,9 +9,9 @@ export default class ModalButton extends Component {
     this.handleEnter  = this.handleEnter.bind(this)
     this.handleAction = this.handleAction.bind(this)
     this.state  = {
-      showModal   : false,
-      titleError  : false,
-      contentError: false
+      showModal    : false,
+      titleError   : false,
+      contentError : false
     }
   }
 
@@ -31,8 +31,8 @@ export default class ModalButton extends Component {
 
     if (!title || !content) {
       this.setState({
-        titleError  : !title   ? true : false,
-        contentError: !content ? true : false
+        titleError   : !title   ? true : false,
+        contentError : !content ? true : false
       })
       return false
     }
@@ -41,9 +41,9 @@ export default class ModalButton extends Component {
     this.props.server.send(payload)
 
     this.setState({
-      showModal   : false,
-      titleError  : false,
-      contentError: false
+      showModal    : false,
+      titleError   : false,
+      contentError : false
     })
   }
 

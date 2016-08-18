@@ -3,4 +3,3 @@
 /node_modules/
 /.crystal/
 /.shards/
-/.compose_psql_path

@@ -47,7 +47,7 @@ textarea {
 }
 
 .app-button {
-    margin-right: 5px;
+  margin-right: 9px;
 }
 
 .main-content {
@@ -58,7 +58,10 @@ textarea {
   margin-bottom: 2%;
 }
 
-.main-title { text-align: center; }
+.main-title {
+  text-align: center;
+  margin-bottom: 15px;
+}
 
 .list-group {
   margin-top: 3%;
@@ -94,15 +97,18 @@ textarea {
 .timestamps {
   padding: 8px 0;
   font-weight: 500 !important;
+  margin-bottom: 5px;
 }
 
 .note-panel .custom-typo {
   font-size: 16px;
-  padding: 4px 0
+  padding: 4px 0;
+  text-align: left;
 }
 
 .note-panel .custom-typo-title span.note-title-text {
   font-size: 19px;
+  text-align: left;
 }
 
 .note-panel .panel-heading{

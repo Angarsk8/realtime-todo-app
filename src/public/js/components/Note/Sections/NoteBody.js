@@ -17,9 +17,9 @@ export default class NoteBody extends NoteSection {
 
     this.setState({ editable: false })
 
-    if(!content){
+    if (!content) {
       $content.textContent = this.props.content
-      return
+      return false
     }
 
     if (this.props.content !== content) {
@@ -60,7 +60,9 @@ export default class NoteBody extends NoteSection {
             onClick={ this.handleRemove }
             bsStyle="danger"
             bsSize="small"
-          >Delete</Button>
+          >
+            Delete
+          </Button>
           <ModalButton
             server={ this.props.server }
             title={ this.props.title }

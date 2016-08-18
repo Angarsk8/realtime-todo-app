@@ -1,13 +1,11 @@
 require "kemal"
-require "json"
 require "pg"
-require "./app/lib/note"
+
+require "./app/lib/*"
 
 public_folder "src/public"
 
-COMPOSE = ".compose_psql_db_path"
-
-DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://postgres@localhost:5432/notes_db"
+DB_PATH = "postgres://postgres:postgres@db:5432/notes_db"
 
 conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket
@@ -23,6 +21,7 @@ ws "/notes" do |socket|
 
   # Handle incoming message and dispatch notes to all connected clients
   socket.on_message do |msg|
+    puts "Receiving message => #{msg} from => #{socket}"
     payload = JSON.parse(msg).as_h
 
     # Handle message type to perform different CRUD operations

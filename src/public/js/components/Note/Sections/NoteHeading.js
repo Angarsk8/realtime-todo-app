@@ -15,9 +15,9 @@ export default class NoteHeading extends NoteSection {
 
     this.setState({ editable: false })
 
-    if(!title){
+    if (!title) {
       $title.textContent = this.props.title
-      return
+      return false
     }
 
     if (this.props.title !== title) {
@@ -43,14 +43,16 @@ export default class NoteHeading extends NoteSection {
           <span class="updated-text">
             {
               this.props.created_at !== this.props.updated_at
-                ? ' (updated)'
+                ? '  (updated)'
                 : ''
             }
           </span>
           <span
             onClick={ this.handleRemove }
             class="pull-right closing-icon"
-          >x</span>
+          >
+            x
+          </span>
         </h3>
       </div>
     )

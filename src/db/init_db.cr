@@ -1,7 +1,7 @@
 require "pg"
 
-DB_NAME = "db_name"
-PG_PATH = "postgres://user:password@localhost:5432"
+DB_NAME = "notes_db"
+PG_PATH = "postgres://postgres:postgres@db:5432"
 
 # CREATES CONNECTION WITH DEFAULT POSTGRES DB
 conn = PG.connect("#{PG_PATH}/postgres")
