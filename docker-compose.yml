@@ -3,10 +3,19 @@ services:
   db:
     image: postgres
   web:
-    build: .
     image: angarsk8/loopa_todo_demo
-    command: bash -c "crystal src/db/init_db.cr && ./app --port 80"
+    command: bash -c "sleep 20 && ./app --port 80"
     ports:
       - "80:80"
+    links:
+      - db
+    depends_on:
+      - migration
+  migration:
+    build: .
+    image: angarsk8/loopa_todo_demo
+    command: bash -c "sleep 10 && crystal src/db/init_db.cr"
+    links:
+      - db
     depends_on:
       - db

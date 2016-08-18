@@ -21,7 +21,7 @@ ws "/notes" do |socket|
 
   # Handle incoming message and dispatch notes to all connected clients
   socket.on_message do |msg|
-    puts "Receiving message => #{msg} from => #{socket}"
+
     payload = JSON.parse(msg).as_h
 
     # Handle message type to perform different CRUD operations
@@ -41,7 +41,6 @@ ws "/notes" do |socket|
         s.send Note.all(conn).to_json
       rescue ex
         sockets.delete(s)
-        puts "Closing Socket: #{s}"
       end
     end
   end
@@ -49,7 +48,6 @@ ws "/notes" do |socket|
   # Handle disconnection and clean sockets
   socket.on_close do |_|
     sockets.delete(socket)
-    puts "Closing Socket: #{socket}"
   end
 end
 
