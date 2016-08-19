@@ -11,7 +11,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     const { hostname, port } = location
     const server = new WebSocket(`ws://${hostname}:${port}/notes`)
 

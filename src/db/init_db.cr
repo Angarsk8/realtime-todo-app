@@ -3,7 +3,7 @@ require "pg"
 DB_NAME = "notes_db"
 PG_PATH = "postgres://postgres:postgres@db:5432"
 
-# CREATES CONNECTION WITH DEFAULT POSTGRES DB
+# Creates connection with the default postgres db
 conn = PG.connect("#{PG_PATH}/postgres")
 
 database_exists? = conn.exec(%{
@@ -13,16 +13,16 @@ database_exists? = conn.exec(%{
 }, [DB_NAME]).to_hash.empty? ? false : true
 
 if !database_exists?
-  # CREATES THE NOTES_DB DATABASE WITH UTF8 ENCODING AND CLOSE THE CONNECTION
+  # Creates the notes_db database with UTF8 encoding and close the connection
   puts "Creating database: #{DB_NAME}..."
   conn.exec("CREATE DATABASE #{DB_NAME} ENCODING 'UTF8';")
   conn.close
 
-  # CREATES CONNECTION WITH THE NEWLY CREATED DB
+  # Creates connection with the newly created db
   puts "Connecting database: #{DB_NAME}..."
   conn = PG.connect("#{PG_PATH}/#{DB_NAME}")
 
-  # CREATES THE NOTES TABLE IN THE NEWLY CREATED DATABASE
+  # Creates the notes table in the newly created database
   puts "Creating notes table in #{DB_NAME}..."
   conn.exec(%{
     CREATE TABLE notes (

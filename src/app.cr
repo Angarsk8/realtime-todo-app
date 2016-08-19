@@ -1,44 +1,45 @@
 require "kemal"
 require "pg"
 
-require "./app/lib/*"
+require "./app/models/*"
 
 public_folder "src/public"
 
 DB_PATH = "postgres://postgres:postgres@db:5432/notes_db"
 
-conn = PG.connect DB_PATH
+db_conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket
 
-get "/" do |env|
+get "/" do
   render "src/views/layout.ecr"
 end
 
 ws "/notes" do |socket|
   sockets.push socket
 
-  socket.send Note.all(conn).to_json
+  socket.send Note.all(db_conn).to_json
 
   # Handle incoming message and dispatch notes to all connected clients
-  socket.on_message do |msg|
+  socket.on_message do |message|
 
-    payload = JSON.parse(msg).as_h
+    payload = JSON.parse(message).as_h
 
     # Handle message type to perform different CRUD operations
     case payload["type"]
     when "CREATE"
-      Note.create_from(payload).insert(conn)
+      Note.create_from(message).insert(db_conn)
     when "UPDATE"
-      Note.create_from(payload).update(conn)
+      Note.create_from(message).update(db_conn)
     when "DELETE"
-      Note.create_from(payload).delete(conn)
+      Note.create_from(message).delete(db_conn)
     else
       next
     end
 
+    # Broadcast all persisted notes back to each connected client
     sockets.each do |s|
       begin
-        s.send Note.all(conn).to_json
+        s.send Note.all(db_conn).to_json
       rescue ex
         sockets.delete(s)
       end
