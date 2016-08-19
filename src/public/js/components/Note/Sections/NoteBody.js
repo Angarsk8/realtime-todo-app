@@ -37,9 +37,9 @@ export default class NoteBody extends NoteSection {
         <div
           class="custom-typo text-muted note-content"
           contentEditable={ this.state.editable }
-          onBlur={ this.handleUpdate }
-          onClick={ this.focusElement }
-          onKeyPress={ this.handleEnter }
+          onBlur={ ::this.handleUpdate }
+          onClick={ ::this.focusElement }
+          onKeyPress={ ::this.handleEnter }
           ref="content"
         >
           { this.props.content }
@@ -57,7 +57,7 @@ export default class NoteBody extends NoteSection {
         <ButtonToolbar>
           <Button
             class="app-button"
-            onClick={ this.handleRemove }
+            onClick={ ::this.handleRemove }
             bsStyle="danger"
             bsSize="small"
           >

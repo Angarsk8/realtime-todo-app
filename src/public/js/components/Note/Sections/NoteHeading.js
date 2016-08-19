@@ -33,9 +33,9 @@ export default class NoteHeading extends NoteSection {
           <span
             class="text-info note-title-text"
             contentEditable={ this.state.editable }
-            onBlur={ this.handleUpdate }
-            onClick={ this.focusElement }
-            onKeyPress={ this.handleEnter }
+            onBlur={ ::this.handleUpdate }
+            onClick={ ::this.focusElement }
+            onKeyPress={ ::this.handleEnter }
             ref="title"
           >
             { this.props.title }
@@ -48,7 +48,7 @@ export default class NoteHeading extends NoteSection {
             }
           </span>
           <span
-            onClick={ this.handleRemove }
+            onClick={ ::this.handleRemove }
             class="pull-right closing-icon"
           >
             x

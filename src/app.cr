@@ -5,7 +5,8 @@ require "./app/lib/*"
 
 public_folder "src/public"
 
-DB_PATH = "postgres://postgres:postgres@db:5432/notes_db"
+DB_PATH = "postgres://postgres@localhost:5432/notes_db"
+# DB_PATH = "postgres://postgres:postgres@db:5432/notes_db"
 
 conn = PG.connect DB_PATH
 sockets = [] of HTTP::WebSocket

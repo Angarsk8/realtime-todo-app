@@ -4,10 +4,6 @@ import { Button, Modal } from 'react-bootstrap'
 export default class ModalButton extends Component {
   constructor(props) {
     super(props)
-    this.handleClose  = this.handleClose.bind(this)
-    this.handleOpen   = this.handleOpen.bind(this)
-    this.handleEnter  = this.handleEnter.bind(this)
-    this.handleAction = this.handleAction.bind(this)
     this.state  = {
       showModal    : false,
       titleError   : false,
@@ -57,7 +53,7 @@ export default class ModalButton extends Component {
     return (
       <div>
         <Button
-          onClick={ this.handleOpen }
+          onClick={ ::this.handleOpen }
           bsStyle={ this.props.buttonStyle }
           className={ this.props.displayBlock ? 'btn-block' : '' }
           bsSize={ this.props.size }
@@ -66,7 +62,7 @@ export default class ModalButton extends Component {
         </Button>
         <Modal
           show={ this.state.showModal }
-          onHide={ this.handleClose }
+          onHide={ ::this.handleClose }
         >
           <Modal.Header closeButton>
             <Modal.Title className="text-primary">
@@ -97,7 +93,7 @@ export default class ModalButton extends Component {
                 rows="4" ref="contentInput"
                 placeholder="Your content..."
                 defaultValue={ this.props.content }
-                onKeyPress={ this.handleEnter }
+                onKeyPress={ ::this.handleEnter }
               ></textarea>
               <label
                 className={ this.state.contentError ? 'error' : 'hidden' }
@@ -107,9 +103,9 @@ export default class ModalButton extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={ this.handleClose }>Close</Button>
+            <Button onClick={ ::this.handleClose }>Close</Button>
             <Button
-              onClick={ this.handleAction }
+              onClick={ ::this.handleAction }
               bsStyle="primary"
             >
               { this.props.action }

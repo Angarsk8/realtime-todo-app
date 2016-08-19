@@ -3,10 +3,6 @@ import React, { Component } from 'react'
 export default class NoteSection extends Component {
   constructor(props) {
     super(props)
-    this.handleRemove = this.handleRemove.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
-    this.handleEnter  = this.handleEnter.bind(this)
-    this.focusElement = this.focusElement.bind(this)
     this.state  = { editable: false }
   }
 
