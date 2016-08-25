@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="container main-content">
         <h2 className="text-primary main-title">
-          Add a task you'd like to remember!
+          Add a task you&#39;d like to remember!
         </h2>
         <ModalButton
           server={ this.server }
