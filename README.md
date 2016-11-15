@@ -1,16 +1,17 @@
-# Todo Basic App (Crystal - Kemal - WebSockets - React - PostgreSQL)
+# Todo Basic App (Crystal - Kemal - WebSockets - React - PostgreSQL - Docker)
 
 ## Requirements
 * Crystal 0.18.7
-* PostgreSQL (I have the v9.5.2)
-* Node (I have the v5.11.1)
-* NPM (I have the v3.8.6)
+* PostgreSQL (v9.5.2)
+* Node (v5.11.1)
+* NPM (v3.8.6)
+* Docker (v1.12.1) && Docker-Compose (v1.8.0)
 
 <sup>**Node and NPM are both optional if you are just going to run the app, but necessary for development since they are needed to run webpack*<sup>
 
-## Installation
+## Manual Installation
 Before you can run this program you have to install the packages that it uses. You do that with `$ shards install `.
-You also need to change the path to the PostgreSQL database in `src/db/init_db.cr` and `src/notes.cr`
+You also need to configure the path to the PostgreSQL database in the files `src/db/init_db.cr` and `src/app.cr`
 
 ```crystal
 # src/db/init_db.cr
@@ -24,31 +25,32 @@ PG_PATH = "postgres://user:password@localhost:5432"
 ```
 
 ```crystal
-# src/notes.cr
+# src/app.cr
 require "kemal"
-require "json"
 require "pg"
-require "./app/lib/note"
+
+require "./app/models/*"
 
 public_folder "src/public"
 
-COMPOSE = ".compose_psql_db_path"
-
 # Configure the path of the database based on what you did in the src/db/init_db.cr file
-DB_PATH = File.file?(COMPOSE) ? File.read(COMPOSE) : "postgres://user:password@localhost:5432/db_name"
-
+DB_PATH = "postgres://user:password@localhost:5432"
 ...
 ```
 
 Once you have installed the dependencies and configured the database path, you need to create the actual database and table for the application. You do that by running  `$ crystal src/db/init_db.cr`.
 
-## Run Project
+### Run Project
 You can run this program in two ways:
 
 1. Compile/build the project using the command line with `$ crystal build src/notes.cr --release` and run the executable `$ ./notes`
 2. Run the program with `$ crystal src/notes.cr` (no compilation required)
 
-Once you have run the program, you can open a browser window at [localthost:3000](http://localhost:3000) and see the actual app. You can open the app in several browser windows and see how they change in real time via websockets.
+Once you have run the program, you can open a browser window at [localthost:3000](http://localhost:3000) and see the actual app. You can open the app in several browser windows and see how they change in real time via websockets. In the first option you can also pass the port number as an argument to the program, like this `./notes --port <port-number>` and the program will show at `http://<server-ip-number>:<port-number>`.
+
+## Installation With Docker
+
+You nee to run one single command: `docker-compose up` or `docker-compose up -d`.
 
 ## Live Demo
 
